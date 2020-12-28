@@ -1,0 +1,9 @@
+
+#wrapper{
+    max-width: 1024px;
+    margin: 0 auto;
+}
+#blog_content{
+    background-color: antiquewhite;
+    max-width: 1024px;
+}
