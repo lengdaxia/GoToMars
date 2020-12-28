@@ -40,8 +40,7 @@
     };
 
 
-    readMdFile('./doc/test.md',(text) => {
-
+    readMdFile('doc/test.md',(text) => {
         document.getElementById('blog_content').innerHTML = marked(text);
     });
 
