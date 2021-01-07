@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.4/markdown-it.min.js" integrity="sha512-0DkA2RqFvfXBVeti0R1l0E8oMkmY0X+bAA2i02Ld8xhpjpvqORUcE/UBe+0KOPzi5iNah0aBpW6uaNNrqCk73Q==" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="css/blog.css">
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
 
@@ -15,12 +16,38 @@
             <h2>这是博客头部</h2>
         </header>
         <div id="blog_content">
+            <ol>
 
+            </ol>
         </div>
     </div>
 </body>
 
 <script>
+
+    window.onload = function(){
+
+        $.ajax({
+            url:'http://localhost:3000/blog',
+            type:'GET',
+            success: function (result){
+                console.log(result);
+
+                result.map(function(model){
+                    $('ol').append(
+                        "<li>"
+                        + `<p>${model.title}</p>`
+                        + `<p>${model.desc}</p>`
+                        + `<p>${model.tags.join(' ')}</p>`
+                        +"</li>"
+                    )
+                });
+            },
+            error:function(error){
+                alert(error.toString());
+            }
+        })
+    }
     
     async function readMdFile (file,callback) {
         var rawFile = new XMLHttpRequest();
@@ -41,7 +68,7 @@
 
 
     readMdFile('doc/test.md',(text) => {
-        document.getElementById('blog_content').innerHTML = marked(text);
+    //    document.getElementById('blog_content').innerHTML = marked(text);
     });
 
 </script>
